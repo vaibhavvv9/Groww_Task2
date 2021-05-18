@@ -1,0 +1,118 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+h1 {
+  margin: 2rem 0rem 1rem 5rem;
+}
+
+.board {
+  /* border: 1rem solid #ff652f; */
+  /* background: #ff652f; */
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.squares {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 36px;
+  font-weight: bold;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 80px;
+  line-height: 80px;
+  height: 80px;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  background-color: #00d09c;
+  margin: 10px;
+  border: 1px solid #2d6898;
+  /* background-image: -webkit-linear-gradient(
+    bottom,
+    rgb(73, 132, 180) 0%,
+    rgb(97, 155, 203) 100%
+  ); */
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, 0.4),
+    inset 0px 1px 0px rgba(255, 255, 255, 0.3),
+    inset 0px 0px 3px rgba(255, 255, 255, 0.5);
+}
+.squares:active {
+  background-image: -webkit-linear-gradient(
+    bottom,
+    rgb(88, 154, 204) 0%,
+    rgb(90, 150, 199) 100%
+  );
+}
+
+/* .X {
+  color: red;
+}
+.O {
+  color: green;
+} */
+
+.info-wrapper {
+  display: block;
+  justify-content: space-between;
+}
+
+h3 {
+  padding: 1rem;
+  margin: 3rem 0rem 0rem 7rem;
+}
+
+li {
+  list-style: none;
+}
+
+.info-wrapper button {
+  border-top: 1px solid #96f8b4;
+  background: #00d09c;
+
+  padding: 5px 11px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  border-radius: 24px;
+  -webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+  box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+  color: white;
+  font-size: 22px;
+  font-family: Georgia, serif;
+  text-decoration: none;
+  vertical-align: middle;
+  margin: 10px;
+}
+.info-wrapper button:hover {
+  border-top-color: #28597a;
+  background: #00d09c;
+  color: #000;
+}
+.info-wrapper button:active {
+  border-top-color: #1b435e;
+  background: #00d09c;
+}
+.history_button {
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: 10px;
+}
