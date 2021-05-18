@@ -1,10 +1,10 @@
 import React from "react";
 
-const Square = ({ value, onClick }) => {
+const Square = ({ value, onClick2 }) => {
     const style = value ? `squares ${value}` : `squares`;
 
     return (
-        <button className={style} onClick={onClick}>
+        <button className={style} onClick={onClick2}>
             {value}
         </button>
     );

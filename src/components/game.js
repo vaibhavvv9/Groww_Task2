@@ -60,7 +60,7 @@ const Game = () => {
                 <h1>Tic Tac Toe </h1>
 
                 <Board squares={history[stepNumber]}
-                    onClick={handleClick} />
+                    onClick1={handleClick} />
                 <h3>
 
                     {
