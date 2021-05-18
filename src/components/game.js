@@ -4,36 +4,26 @@ import Board from "./board";
 
 const Game = () => {
 
-
-    const [history, setHistory] = useState([Array(9).fill(null)]);
-    //A 2d array which contains the each movement of each square history[i][j] means status of jth square in ith move
+    const [currentboard, setCurrentBoard] = useState([null, null, null, null, null, null, null, null, null]);
+    const [history, setHistory] = useState([]);
     const [stepNumber, setStepNumber] = useState(0);
-    // Stores how many steps i have completed
     const [xIsNext, setXisNext] = useState(true);
-    //predict the chance of next player
-    const winner = get_winner(history[stepNumber]);
-    // takes 1d array as input upto ith move and return true if winner is decided
+    const winner = get_winner(currentboard);
     const player_turn = xIsNext ? "X" : "O";
-    // Chance of a player
-    const handleClick = (i) => {
-        const historyPoint = history.slice(0, stepNumber + 1);
-        // slices the move upto 0 to ith move(used in reversing the step)
-        const current = historyPoint[stepNumber];
-        // 1d aray which tells the status till ith move
-        const squares = [...current];
 
 
+    function handleClick(i) {
+        // const historyPoint = history.slice(0, stepNumber + 1);
+        console.log(i);
+        const squares = [...currentboard];
+        if (winner || currentboard[i])
+            return;
 
-        // return if won or occupied
-        if (winner || squares[i]) return;
-        // select square
-
-
-        squares[i] = player_turn;
-        setHistory([...historyPoint, squares]);
-        setStepNumber(historyPoint.length);
+        var temp = stepNumber + 1;
+        setCurrentBoard(currentboard[i] = player_turn);
+        setStepNumber(temp);
         setXisNext(!xIsNext);
-
+        console.log(currentboard);
     };
 
     const jumpTo = (step) => {
@@ -42,15 +32,12 @@ const Game = () => {
 
     };
 
-    const renderMoves = () =>
-        history.map((_step, move) => {
-            const destination = move ? `Move #${move}` : "Let's Start";
-            return (
-                <li key={move}>
-                    <button onClick={() => jumpTo(move)}>{destination}</button>
-                </li>
-            );
-        });
+    // const renderMoves = () =>
+    //     <button onClick={() => jumpTo(0)}>"Let's Start"</button>
+
+    // history.map((move) => (
+    //     <button onClick={() => jumpTo(move)}>Move #{move} </button>
+    // ));
 
     return (
 
@@ -58,9 +45,15 @@ const Game = () => {
             <div className="board_and_header"
                 style={{ width: "50%" }}>
                 <h1>Tic Tac Toe </h1>
+                <div className="board">
+                    {
+                        currentboard.map((value, index) => (
+                            <button key={index} className="squares" onClick={() => handleClick(index)}>
+                                {value}
+                            </button>
+                        ))}
+                </div>
 
-                <Board squares={history[stepNumber]}
-                    onClick={handleClick} />
                 <h3>
 
                     {
@@ -73,10 +66,10 @@ const Game = () => {
                 style={{ textAlign: "center", width: "50%" }}>
                 <h2 style={{ width: "100%" }}>History</h2>
                 <br />
-                <div className="history_button">
+                {/* <div className="history_button">
 
                     {renderMoves()}
-                </div>
+                </div> */}
             </div>
         </div>
     );
