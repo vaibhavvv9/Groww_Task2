@@ -12,7 +12,7 @@ const Game = () => {
         let board = [null, null, null, null, null, null, null, null, null];
 
         for (let i = 0; i <= stepNumber; i++) {
-            i % 2 != 0 ? board[myHistory[i]] = 'O' : board[myHistory[i]] = 'X';
+            i % 2 !== 0 ? board[myHistory[i]] = 'O' : board[myHistory[i]] = 'X';
         }
 
         return board;
@@ -27,7 +27,7 @@ const Game = () => {
         const historyPoint = myHistory.slice(0, stepNumber + 1);
         const idx = historyPoint.indexOf(i);
 
-        if (winner || idx != -1)
+        if (winner || idx !== -1)
             return;
 
         var newMyHistory = myHistory;
@@ -40,7 +40,6 @@ const Game = () => {
         setMyHistory(newMyHistory);
         setStepNumber(stepNumber + 1);
         setXisNext(!xIsNext);
-
     };
 
 
@@ -52,15 +51,12 @@ const Game = () => {
     };
 
     const renderMoves = () =>
-        myHistory.map((value, idx) => {
-            if (value != null) {
-                const destination = `Move #${idx + 1}`;
-                return (
-                    <li key={idx}>
-                        <button onClick={() => jumpTo(idx)}>{destination}</button>
-                    </li>
-                )
-            }
+        myHistory.filter(value => value != null).map((value, idx) => {
+            return (
+                <li key={idx}>
+                    <button onClick={() => jumpTo(idx)}>Move #{idx + 1}</button>
+                </li>
+            )
         })
 
     return (
@@ -73,7 +69,7 @@ const Game = () => {
                 <Board squares={getBoard()} onClick={handleClick} />
                 <h3>
                     {
-                        winner ? ("Winner: " + winner) : `${stepNumber}` != 8 ? ("Next Player: " + player_turn) : ("Game Ends in a Draw")
+                        winner ? ("Winner: " + winner) : stepNumber !== 8 ? ("Next Player: " + player_turn) : ("Game Ends in a Draw")
                     }
                 </h3>
             </div>
