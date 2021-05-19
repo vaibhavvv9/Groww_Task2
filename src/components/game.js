@@ -5,7 +5,7 @@ import Board from "./board";
 const Game = () => {
 
 
-    const [history, setHistory] = useState([Array(9).fill(null)]);
+    const [history, setHistory] = useState([Array(16).fill(null)]);
     //A 2d array which contains the each movement of each square history[i][j] means status of jth square in ith move
     const [stepNumber, setStepNumber] = useState(0);
     // Stores how many steps i have completed
@@ -65,7 +65,7 @@ const Game = () => {
 
                     {
 
-                        winner ? ("Winner: " + winner) : `${stepNumber}` != 9 ? ("Next Player: " + player_turn) : ("Game Ends in a Draw")
+                        winner ? ("Winner: " + winner) : stepNumber !== 16 ? ("Next Player: " + player_turn) : ("Game Ends in a Draw")
                     }
                 </h3>
             </div>

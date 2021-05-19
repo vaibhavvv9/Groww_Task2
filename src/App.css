@@ -15,11 +15,12 @@ h1 {
 .board {
   /* border: 1rem solid #ff652f; */
   /* background: #ff652f; */
-  width: 300px;
-  height: 300px;
+  width: fit-content;
+  height: auto;
   display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
   gap: 1rem;
+  margin-bottom: 10px;
 }
 
 .squares {
