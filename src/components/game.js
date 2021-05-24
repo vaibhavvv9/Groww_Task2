@@ -1,80 +1,80 @@
 import React, { useState } from "react";
 import { get_winner } from "./winner";
 import Board from "./board";
-
+import useWindowSize from "../utils/useWindowSize";
 const Game = () => {
 
-
-    const [myHistory, setMyHistory] = useState([null, null, null, null, null, null, null, null, null]);
+    const { width } = useWindowSize();
+    const [historyOfMoves, setHistoryOfMoves] = useState([null, null, null, null, null, null, null, null, null]);
     const [stepNumber, setStepNumber] = useState(-1);
-    const [xIsNext, setXisNext] = useState(true);
-    const getBoard = () => {
-        let board = [null, null, null, null, null, null, null, null, null];
+
+
+    const getStatusOfBoard = () => {
+        let boardStatus = [null, null, null, null, null, null, null, null, null];
 
         for (let i = 0; i <= stepNumber; i++) {
-            i % 2 !== 0 ? board[myHistory[i]] = 'O' : board[myHistory[i]] = 'X';
+            i % 2 !== 0 ? boardStatus[historyOfMoves[i]] = 'O' : boardStatus[historyOfMoves[i]] = 'X';
         }
 
-        return board;
+        return boardStatus;
     }
 
 
-    const winner = get_winner(getBoard());
+    const winner = get_winner(getStatusOfBoard());
     const player_turn = stepNumber % 2 ? "X" : "O";
 
     const handleClick = (i) => {
 
-        const historyPoint = myHistory.slice(0, stepNumber + 1);
-        const idx = historyPoint.indexOf(i);
+        const historyPoint = historyOfMoves.slice(0, stepNumber + 1);
+        const moveInHistory = historyPoint.indexOf(i);
 
-        if (winner || idx !== -1)
+        if (winner || moveInHistory !== -1)
             return;
 
-        var newMyHistory = myHistory;
-        newMyHistory[stepNumber + 1] = i;
+        var copyOfHistoryMoves = historyOfMoves;
+        copyOfHistoryMoves[stepNumber + 1] = i;
 
         for (let index = stepNumber + 2; index < 9; index++) {
-            newMyHistory[index] = null;
+            copyOfHistoryMoves[index] = null;
         }
 
-        setMyHistory(newMyHistory);
+        setHistoryOfMoves(copyOfHistoryMoves);
         setStepNumber(stepNumber + 1);
-        setXisNext(!xIsNext);
     };
 
 
 
     const jumpTo = (step) => {
         setStepNumber(step);
-        setXisNext(step % 2 === 0);
-
     };
 
     const renderMoves = () =>
-        myHistory.filter(value => value != null).map((value, idx) => {
+        historyOfMoves.filter(value => value != null).map((value, idx) => {
             return (
                 <li key={idx}>
                     <button onClick={() => jumpTo(idx)}>Move #{idx + 1}</button>
                 </li>
             )
         })
-
+    const historyStyle = {
+        display: width > 600 ? "flex" : "block", width: "100%", height: "100vh"
+    }
     return (
 
-        <div className="board_history" style={{ display: "flex", width: "100%", height: "100vh" }}>
+        <div className="board_history" style={historyStyle}>
             <div className="board_and_header"
-                style={{ width: "50%" }}>
+                style={{ width: width > 600 ? "50%" : "100%", height: width > 600 ? "100vh" : "50vh" }}>
 
                 <h1>Tic Tac Toe </h1>
-                <Board squares={getBoard()} onClick={handleClick} />
+                <Board squares={getStatusOfBoard()} onClick={handleClick} />
                 <h3>
                     {
                         winner ? ("Winner: " + winner) : stepNumber !== 8 ? ("Next Player: " + player_turn) : ("Game Ends in a Draw")
                     }
                 </h3>
             </div>
-            <div className="info-wrapper" style={{ textAlign: "center", width: "50%" }}>
-                <h2 style={{ width: "100%" }}>History</h2>
+            <div className="info-wrapper" style={{ textAlign: "center", width: width > 600 ? "50%" : "100%", height: width > 600 ? "100vh" : "50vh" }}>
+                <h2 style={{}}>History</h2>
                 <br />
                 <div className="history_button">
                     <li>
@@ -83,7 +83,8 @@ const Game = () => {
                     {renderMoves()}
                 </div>
             </div>
-        </div>
+        </div >
+
     );
 };
 
