@@ -56,29 +56,45 @@ const Game = () => {
                 </li>
             )
         })
-    const historyStyle = {
-        display: width > 600 ? "flex" : "block", width: "100%", height: "100vh"
+    const boardhistoryStyle = {
+        display: width > 768 ? "flex" : "block", width: "100%", height: "100vh"
+    }
+    const historyStyling = {
+        width: width > 768 ? "50%" : "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start"
+    }
+    const board_and_header_styling = {
+        width: width > 768 ? "50%" : "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
     }
     return (
 
-        <div className="board_history" style={historyStyle}>
+        <div className="board_history" style={boardhistoryStyle}>
             <div className="board_and_header"
-                style={{ width: width > 600 ? "50%" : "100%", height: width > 600 ? "100vh" : "50vh" }}>
+                style={board_and_header_styling}>
 
                 <h1>Tic Tac Toe </h1>
                 <Board squares={getStatusOfBoard()} onClick={handleClick} />
                 <h3>
                     {
-                        winner ? ("Winner: " + winner) : stepNumber !== 8 ? ("Next Player: " + player_turn) : ("Game Ends in a Draw")
+                        winner ? <span className="game_status">Winner:  {winner}</span>
+                            : stepNumber !== 8 ? ("Next Player: " + player_turn)
+                                : <span className="game_status">Game Ends in a Draw</span>
                     }
                 </h3>
             </div>
-            <div className="info-wrapper" style={{ textAlign: "center", width: width > 600 ? "50%" : "100%", height: width > 600 ? "100vh" : "50vh" }}>
-                <h2 style={{}}>History</h2>
-                <br />
-                <div className="history_button">
+            <div className="info-wrapper"
+                style={historyStyling}>
+                <h2>History</h2>
+
+                <div className="history_button" >
                     <li>
-                        <button onClick={() => jumpTo(-1)}>Let's start</button>
+                        <button onClick={() => jumpTo(-1)}>Game On</button>
                     </li>
                     {renderMoves()}
                 </div>
